@@ -16,10 +16,13 @@ class AdaptiveTextCase extends StatefulWidget {
     this.onDel,
     this.operatState,
     this.onTap,
+    this.controller,
   }) : super(key: key);
 
   @override
   _AdaptiveTextCaseState createState() => _AdaptiveTextCaseState();
+
+  final ItemCaseController? controller;
 
   /// 自适应文本对象
   final AdaptiveText adaptiveText;
@@ -61,6 +64,7 @@ class _AdaptiveTextCaseState extends State<AdaptiveTextCase>
   @override
   Widget build(BuildContext context) {
     return ItemCase(
+      controller: widget.controller,
       isCenter: false,
       canEdit: true,
       onTap: widget.onTap,

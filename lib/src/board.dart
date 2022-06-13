@@ -47,6 +47,8 @@ class StackBoard extends StatefulWidget {
 }
 
 class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
+  late Map<String, dynamic> _data;
+
   /// 子控件列表
   late List<StackBoardItem> _children;
 
@@ -63,6 +65,7 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
   void initState() {
     super.initState();
     _children = <StackBoardItem>[];
+    _data = <String, dynamic>{};
   }
 
   @override
@@ -156,24 +159,29 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
 
   /// 构建项
   Widget _buildItem(StackBoardItem item) {
-    Widget child = ItemCase(
-      key: _getKey(item.id),
-      child: Container(
-        width: 150,
-        height: 150,
-        alignment: Alignment.center,
-        child: const Text(
-            'unknow item type, please use customBuilder to build it'),
-      ),
-      onDel: () => _onDel(item),
-      onTap: () => _moveItemToTop(item.id),
-      caseStyle: item.caseStyle,
-      operatState: _operatState,
-    );
+    // Widget child = ItemCase(
+    //   key: _getKey(item.id),
+    //   child: Container(
+    //     width: 150,
+    //     height: 150,
+    //     alignment: Alignment.center,
+    //     child: const Text(
+    //         'unknow item type, please use customBuilder to build it'),
+    //   ),
+    //   onDel: () => _onDel(item),
+    //   onTap: () => _moveItemToTop(item.id),
+    //   caseStyle: item.caseStyle,
+    //   operatState: _operatState,
+    // );
+
+    Widget child;
+    final Key key = _getKey(item.id);
+    final ItemCaseController controller = ItemCaseController();
 
     if (item is AdaptiveText) {
       child = AdaptiveTextCase(
-        key: _getKey(item.id),
+        key: key,
+        controller: controller,
         adaptiveText: item,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
@@ -181,7 +189,8 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
       );
     } else if (item is StackDrawing) {
       child = DrawingBoardCase(
-        key: _getKey(item.id),
+        key: key,
+        controller: controller,
         stackDrawing: item,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
@@ -189,7 +198,8 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
       );
     } else {
       child = ItemCase(
-        key: _getKey(item.id),
+        key: key,
+        controller: controller,
         child: item.child,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
@@ -202,6 +212,8 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
         if (customWidget != null) return child = customWidget;
       }
     }
+
+    _data[key.toString()] = controller;
 
     return child;
   }

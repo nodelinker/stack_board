@@ -14,10 +14,13 @@ class DrawingBoardCase extends StatefulWidget {
     this.onDel,
     this.operatState = OperatState.editing,
     this.onTap,
+    this.controller,
   }) : super(key: key);
 
   @override
   _DrawingBoardCaseState createState() => _DrawingBoardCaseState();
+
+  final ItemCaseController? controller;
 
   /// 画板配置对象
   final StackDrawing stackDrawing;
@@ -91,6 +94,7 @@ class _DrawingBoardCaseState extends State<DrawingBoardCase>
   @override
   Widget build(BuildContext context) {
     return ItemCase(
+      controller: widget.controller,
       isCenter: false,
       canEdit: true,
       onTap: widget.onTap,

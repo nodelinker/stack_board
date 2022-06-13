@@ -51,10 +51,14 @@ class ItemCase extends StatefulWidget {
     this.onOffsetChanged,
     this.onAngleChanged,
     this.onTap,
+    this.controller,
   }) : super(key: key);
 
   @override
   _ItemCaseState createState() => _ItemCaseState();
+
+  /// 控制器
+  final ItemCaseController? controller;
 
   /// 子控件
   final Widget child;
@@ -113,6 +117,7 @@ class _ItemCaseState extends State<ItemCase> with SafeState<ItemCase> {
     _operatState = widget.operatState ?? OperatState.idle;
     _config = SafeValueNotifier<_Config>(_Config.def());
     _config.value.offset = widget.caseStyle?.initOffset;
+    widget.controller?._itemCaseState = this;
   }
 
   @override
@@ -556,5 +561,13 @@ class _ItemCaseState extends State<ItemCase> with SafeState<ItemCase> {
       bottom: _caseStyle.iconSize / 2,
       child: widget.tools!,
     );
+  }
+}
+
+class ItemCaseController {
+  _ItemCaseState? _itemCaseState;
+
+  dynamic getConfig() {
+    return _itemCaseState?._config.value;
   }
 }
