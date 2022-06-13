@@ -6,11 +6,12 @@ import 'package:stack_board/stack_board.dart';
 ///自定义类型 Custom item type
 class CustomItem extends StackBoardItem {
   const CustomItem({
-    ItemCaseController? controller,
     required this.color,
     Future<bool> Function()? onDel,
+    ItemCaseController? controller,
     int? id, // <==== must
   }) : super(
+          controller: controller,
           child: const Text('CustomItem'),
           onDel: onDel,
           id: id, // <==== must
@@ -140,6 +141,7 @@ class _HomePageState extends State<HomePage> {
             return ItemCase(
               key: Key('StackBoardItem${t.id}'), // <==== must
               isCenter: false,
+              controller: t.controller,
               onDel: () async => _boardController.remove(t.id),
               onTap: () => _boardController.moveItemToTop(t.id),
               caseStyle: const CaseStyle(
@@ -174,8 +176,9 @@ class _HomePageState extends State<HomePage> {
                   FloatingActionButton(
                     onPressed: () {
                       _boardController.add(
-                        const AdaptiveText(
+                        AdaptiveText(
                           'Flutter Candies',
+                          controller: ItemCaseController(),
                           tapToEdit: true,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),

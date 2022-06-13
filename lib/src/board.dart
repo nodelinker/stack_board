@@ -104,7 +104,7 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
 
   /// 遍历获取所有config data
   void _getConfig() {
-    for (StackBoardItem child in _children) {
+    for (final StackBoardItem child in _children) {
       final ItemCaseController? c = child.controller;
       final ItemCaseConfig x = c?.getConfig() as ItemCaseConfig;
 
