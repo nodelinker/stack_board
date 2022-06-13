@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stack_board/src/helper/case_style.dart';
+import 'package:stack_board/stack_board.dart';
 
 import 'stack_board_item.dart';
 
@@ -7,6 +8,7 @@ import 'stack_board_item.dart';
 class AdaptiveText extends StackBoardItem {
   const AdaptiveText(
     this.data, {
+    ItemCaseController? controller,
     this.style,
     this.textAlign,
     this.textDirection,
@@ -21,6 +23,7 @@ class AdaptiveText extends StackBoardItem {
     CaseStyle? caseStyle,
     bool? tapToEdit,
   }) : super(
+          controller: controller,
           id: id,
           onDel: onDel,
           child: const SizedBox.shrink(),
@@ -61,6 +64,7 @@ class AdaptiveText extends StackBoardItem {
   @override
   AdaptiveText copyWith({
     String? data,
+    ItemCaseController? controller,
     int? id,
     Widget? child,
     Function(bool)? onEdit,
@@ -79,6 +83,7 @@ class AdaptiveText extends StackBoardItem {
   }) {
     return AdaptiveText(
       data ?? this.data,
+      controller: this.controller,
       id: id ?? this.id,
       onDel: onDel ?? this.onDel,
       style: style ?? this.style,

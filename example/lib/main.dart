@@ -6,6 +6,7 @@ import 'package:stack_board/stack_board.dart';
 ///自定义类型 Custom item type
 class CustomItem extends StackBoardItem {
   const CustomItem({
+    ItemCaseController? controller,
     required this.color,
     Future<bool> Function()? onDel,
     int? id, // <==== must
@@ -19,6 +20,7 @@ class CustomItem extends StackBoardItem {
 
   @override // <==== must
   CustomItem copyWith({
+    ItemCaseController? controller,
     CaseStyle? caseStyle,
     Widget? child,
     int? id,
@@ -28,6 +30,7 @@ class CustomItem extends StackBoardItem {
     Color? color,
   }) =>
       CustomItem(
+        controller: this.controller,
         onDel: onDel,
         id: id,
         color: color ?? this.color,
@@ -185,6 +188,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       _boardController.add(
                         StackBoardItem(
+                          controller: ItemCaseController(),
                           child: Image.network(
                               'https://avatars.githubusercontent.com/u/47586449?s=200&v=4'),
                         ),
@@ -196,8 +200,9 @@ class _HomePageState extends State<HomePage> {
                   FloatingActionButton(
                     onPressed: () {
                       _boardController.add(
-                        const StackDrawing(
-                          caseStyle: CaseStyle(
+                        StackDrawing(
+                          controller: ItemCaseController(),
+                          caseStyle: const CaseStyle(
                             borderColor: Colors.grey,
                             iconColor: Colors.white,
                             boxAspectRatio: 1,
@@ -212,6 +217,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       _boardController.add(
                         StackBoardItem(
+                          controller: ItemCaseController(),
                           child: const Text(
                             'Custom Widget',
                             style: TextStyle(color: Colors.black),
@@ -228,6 +234,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       _boardController.add<CustomItem>(
                         CustomItem(
+                          controller: ItemCaseController(),
                           color: Color((math.Random().nextDouble() * 0xFFFFFF)
                                   .toInt())
                               .withOpacity(1.0),
@@ -242,8 +249,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           FloatingActionButton(
-            onPressed: () => _boardController.clear(),
-            child: const Icon(Icons.close),
+            onPressed: () => _boardController.getConfig(),
+            child: const Icon(Icons.save),
           ),
         ],
       ),

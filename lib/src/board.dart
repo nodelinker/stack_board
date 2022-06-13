@@ -47,8 +47,6 @@ class StackBoard extends StatefulWidget {
 }
 
 class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
-  late Map<String, dynamic> _data;
-
   /// 子控件列表
   late List<StackBoardItem> _children;
 
@@ -65,7 +63,6 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
   void initState() {
     super.initState();
     _children = <StackBoardItem>[];
-    _data = <String, dynamic>{};
   }
 
   @override
@@ -103,6 +100,16 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
     _children.add(item);
 
     safeSetState(() {});
+  }
+
+  /// 遍历获取所有config data
+  void _getConfig() {
+    for (StackBoardItem child in _children) {
+      final ItemCaseController? c = child.controller;
+      final ItemCaseConfig x = c?.getConfig() as ItemCaseConfig;
+
+      debugPrint('====================${x.offset} ${x.size}');
+    }
   }
 
   /// 清理
@@ -176,12 +183,11 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
 
     Widget child;
     final Key key = _getKey(item.id);
-    final ItemCaseController controller = ItemCaseController();
 
     if (item is AdaptiveText) {
       child = AdaptiveTextCase(
         key: key,
-        controller: controller,
+        controller: item.controller,
         adaptiveText: item,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
@@ -190,7 +196,7 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
     } else if (item is StackDrawing) {
       child = DrawingBoardCase(
         key: key,
-        controller: controller,
+        controller: item.controller,
         stackDrawing: item,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
@@ -199,7 +205,7 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
     } else {
       child = ItemCase(
         key: key,
-        controller: controller,
+        controller: item.controller,
         child: item.child,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
@@ -212,8 +218,6 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
         if (customWidget != null) return child = customWidget;
       }
     }
-
-    _data[key.toString()] = controller;
 
     return child;
   }
@@ -260,5 +264,10 @@ class StackBoardController {
   /// 销毁
   void dispose() {
     _stackBoardState = null;
+  }
+
+  void getConfig() {
+    _check();
+    _stackBoardState?._getConfig();
   }
 }

@@ -1,16 +1,20 @@
 import 'package:flutter/widgets.dart';
+import 'package:stack_board/src/case_group/item_case.dart';
 import 'package:stack_board/src/helper/case_style.dart';
 
 /// 自定义对象
 @immutable
 class StackBoardItem {
   const StackBoardItem({
+    this.controller,
     required this.child,
     this.id,
     this.onDel,
     this.caseStyle,
     this.tapToEdit = false,
   });
+
+  final ItemCaseController? controller;
 
   /// item id
   final int? id;
@@ -30,12 +34,14 @@ class StackBoardItem {
   /// 对象拷贝
   StackBoardItem copyWith({
     int? id,
+    ItemCaseController? controller,
     Widget? child,
     Future<bool> Function()? onDel,
     CaseStyle? caseStyle,
     bool? tapToEdit,
   }) =>
       StackBoardItem(
+        controller: this.controller,
         id: id ?? this.id,
         child: child ?? this.child,
         onDel: onDel ?? this.onDel,

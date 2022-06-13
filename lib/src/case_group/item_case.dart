@@ -6,11 +6,11 @@ import 'package:stack_board/src/helper/case_style.dart';
 import 'package:stack_board/src/helper/operat_state.dart';
 
 /// 配置项
-class _Config {
-  _Config({this.size, this.offset, this.angle});
+class ItemCaseConfig {
+  ItemCaseConfig({this.size, this.offset, this.angle});
 
   /// 默认配置
-  _Config.def({this.offset = Offset.zero, this.angle = 0});
+  ItemCaseConfig.def({this.offset = Offset.zero, this.angle = 0});
 
   /// 尺寸
   Size? size;
@@ -22,12 +22,12 @@ class _Config {
   double? angle;
 
   /// 拷贝
-  _Config copy({
+  ItemCaseConfig copy({
     Size? size,
     Offset? offset,
     double? angle,
   }) =>
-      _Config(
+      ItemCaseConfig(
         size: size ?? this.size,
         offset: offset ?? this.offset,
         angle: angle ?? this.angle,
@@ -103,7 +103,7 @@ class ItemCase extends StatefulWidget {
 
 class _ItemCaseState extends State<ItemCase> with SafeState<ItemCase> {
   /// 基础参数状态
-  late SafeValueNotifier<_Config> _config;
+  late SafeValueNotifier<ItemCaseConfig> _config;
 
   /// 操作状态
   late OperatState _operatState;
@@ -115,7 +115,7 @@ class _ItemCaseState extends State<ItemCase> with SafeState<ItemCase> {
   void initState() {
     super.initState();
     _operatState = widget.operatState ?? OperatState.idle;
-    _config = SafeValueNotifier<_Config>(_Config.def());
+    _config = SafeValueNotifier<ItemCaseConfig>(ItemCaseConfig.def());
     _config.value.offset = widget.caseStyle?.initOffset;
     widget.controller?._itemCaseState = this;
   }
@@ -339,8 +339,8 @@ class _ItemCaseState extends State<ItemCase> with SafeState<ItemCase> {
 
   @override
   Widget build(BuildContext context) {
-    return ExValueBuilder<_Config>(
-      shouldRebuild: (_Config? p, _Config? n) =>
+    return ExValueBuilder<ItemCaseConfig>(
+      shouldRebuild: (ItemCaseConfig? p, ItemCaseConfig? n) =>
           p?.offset != n?.offset || p?.angle != n?.angle,
       valueListenable: _config,
       child: MouseRegion(
@@ -363,7 +363,7 @@ class _ItemCaseState extends State<ItemCase> with SafeState<ItemCase> {
           ]),
         ),
       ),
-      builder: (_, _Config? c, Widget? child) {
+      builder: (_, ItemCaseConfig? c, Widget? child) {
         return Positioned(
           top: c?.offset?.dy ?? 0,
           left: c?.offset?.dx ?? 0,
@@ -394,14 +394,15 @@ class _ItemCaseState extends State<ItemCase> with SafeState<ItemCase> {
 
     if (widget.isCenter) content = Center(child: content);
 
-    return ExValueBuilder<_Config>(
-      shouldRebuild: (_Config? p, _Config? n) => p?.size != n?.size,
+    return ExValueBuilder<ItemCaseConfig>(
+      shouldRebuild: (ItemCaseConfig? p, ItemCaseConfig? n) =>
+          p?.size != n?.size,
       valueListenable: _config,
       child: Padding(
         padding: EdgeInsets.all(_caseStyle.iconSize / 2),
         child: content,
       ),
-      builder: (_, _Config? c, Widget? child) {
+      builder: (_, ItemCaseConfig? c, Widget? child) {
         return SizedBox.fromSize(
           size: c?.size,
           child: child,
@@ -570,4 +571,6 @@ class ItemCaseController {
   dynamic getConfig() {
     return _itemCaseState?._config.value;
   }
+
+  
 }
