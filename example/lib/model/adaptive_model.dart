@@ -10,12 +10,14 @@ class AdaptiveModel extends WidgetModel {
   AdaptiveModel(
       {required OffsetModel offset,
       required SizedModel size,
+      required double angle,
       required this.text})
-      : super(offset: offset, size: size);
+      : super(offset: offset, size: size, angle: angle);
 
   factory AdaptiveModel.fromJson(Map<String, dynamic> json) =>
       _$AdaptiveModelFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$AdaptiveModelToJson(this);
 
   String text;

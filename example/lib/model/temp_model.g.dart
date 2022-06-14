@@ -11,7 +11,8 @@ TempModel _$TempModelFromJson(Map<String, dynamic> json) => TempModel(
       name: json['name'] as String,
       description: json['description'] as String?,
       children: (json['children'] as List<WidgetModel>?)
-          ?.map((WidgetModel e) => WidgetModel.fromJson(e as Map<String, dynamic>))
+          ?.map((WidgetModel e) =>
+              WidgetModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

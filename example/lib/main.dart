@@ -1,7 +1,12 @@
+import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:stack_board/stack_board.dart';
+import 'package:stack_board_example/model/offset_model.dart';
+import 'package:stack_board_example/model/sized_model.dart';
+import 'package:stack_board_example/model/temp_model.dart';
+import 'package:stack_board_example/model/widget_model.dart';
 
 ///自定义类型 Custom item type
 class CustomItem extends StackBoardItem {
@@ -252,7 +257,43 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           FloatingActionButton(
-            onPressed: () => _boardController.getConfig(),
+            // onPressed: () => _boardController.getConfig(),
+            onPressed: () {
+              final List<WidgetModel> children2 = [];
+              final TempModel tp = TempModel(
+                  id: '123', name: 'test-template-model', children: children2);
+
+              final List<StackBoardItem>? children =
+                  _boardController.getAllChildren();
+              children?.forEach((StackBoardItem element) {
+                // if (element is CustomItem) {
+                //   print(element.color);
+                // } else if (element is AdaptiveText) {
+                //   print(element.data);
+                // } else if (element is StackDrawing) {
+                //   debugPrint('StackDrawing Item');
+                // } else if (element is StackBoardItem) {
+                //   debugPrint('StackBoardItem Item');
+                // } else {}
+
+                final ItemCaseController? c = element.controller;
+                final ItemCaseConfig x = c?.getConfig() as ItemCaseConfig;
+
+                final OffsetModel offset =
+                    OffsetModel(x: x.offset!.dx, y: x.offset!.dy);
+                final SizedModel size =
+                    SizedModel(width: x.size!.width, height: x.size!.height);
+                final double angle = x.angle!;
+
+                tp.children?.add(
+                    WidgetModel(offset: offset, size: size, angle: angle));
+
+                // debugPrint('====================${x.offset} ${x.size}');
+              });
+
+              final String ss = jsonEncode(tp.toJson());
+              debugPrint(ss);
+            },
             child: const Icon(Icons.save),
           ),
         ],

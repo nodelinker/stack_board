@@ -6,7 +6,7 @@ part 'widget_model.g.dart';
 
 @JsonSerializable()
 class WidgetModel {
-  WidgetModel({required this.offset, required this.size});
+  WidgetModel({required this.offset, required this.size, required this.angle});
 
   factory WidgetModel.fromJson(Map<String, dynamic> json) =>
       _$WidgetModelFromJson(json);
@@ -16,4 +16,6 @@ class WidgetModel {
   OffsetModel offset;
 
   SizedModel size;
+
+  double angle;
 }

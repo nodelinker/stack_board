@@ -112,6 +112,10 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
     }
   }
 
+  List<StackBoardItem> getAllChildren() {
+    return _children;
+  }
+
   /// 清理
   void _clear() {
     _children.clear();
@@ -269,5 +273,10 @@ class StackBoardController {
   void getConfig() {
     _check();
     _stackBoardState?._getConfig();
+  }
+
+  List<StackBoardItem>? getAllChildren() {
+    _check();
+    return _stackBoardState?.getAllChildren();
   }
 }

@@ -135,6 +135,7 @@ class _ItemCaseState extends State<ItemCase> with SafeState<ItemCase> {
   @override
   void dispose() {
     _config.dispose();
+    widget.controller?.dispose();
     super.dispose();
   }
 
@@ -572,5 +573,7 @@ class ItemCaseController {
     return _itemCaseState?._config.value;
   }
 
-  
+  void dispose() {
+    _itemCaseState = null;
+  }
 }

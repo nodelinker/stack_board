@@ -10,6 +10,7 @@ AdaptiveModel _$AdaptiveModelFromJson(Map<String, dynamic> json) =>
     AdaptiveModel(
       offset: OffsetModel.fromJson(json['offset'] as Map<String, dynamic>),
       size: SizedModel.fromJson(json['size'] as Map<String, dynamic>),
+      angle: (json['angle'] as num).toDouble(),
       text: json['text'] as String,
     );
 
@@ -17,5 +18,6 @@ Map<String, dynamic> _$AdaptiveModelToJson(AdaptiveModel instance) =>
     <String, dynamic>{
       'offset': instance.offset,
       'size': instance.size,
+      'angle': instance.angle,
       'text': instance.text,
     };
