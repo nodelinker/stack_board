@@ -14,9 +14,11 @@ class CustomItem extends StackBoardItem {
     required this.color,
     Future<bool> Function()? onDel,
     ItemCaseController? controller,
+    ItemCaseConfig? itemConfig,
     int? id, // <==== must
   }) : super(
           controller: controller,
+          itemConfig: itemConfig,
           child: const Text('CustomItem'),
           onDel: onDel,
           id: id, // <==== must
@@ -27,6 +29,7 @@ class CustomItem extends StackBoardItem {
   @override // <==== must
   CustomItem copyWith({
     ItemCaseController? controller,
+    ItemCaseConfig? itemConfig,
     CaseStyle? caseStyle,
     Widget? child,
     int? id,
@@ -37,6 +40,7 @@ class CustomItem extends StackBoardItem {
   }) =>
       CustomItem(
         controller: this.controller,
+        itemConfig: this.itemConfig,
         onDel: onDel,
         id: id,
         color: color ?? this.color,
@@ -68,6 +72,19 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _boardController = StackBoardController();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _boardController.add(
+        AdaptiveText(
+          'INITIAL XXXXX',
+          controller: ItemCaseController(),
+          itemConfig: ItemCaseConfig(
+              size: Size(333, 215), offset: Offset(39, 241), angle: 0.51),
+          tapToEdit: true,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+      );
+    });
   }
 
   @override

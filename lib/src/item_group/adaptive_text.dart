@@ -9,6 +9,7 @@ class AdaptiveText extends StackBoardItem {
   const AdaptiveText(
     this.data, {
     ItemCaseController? controller,
+    ItemCaseConfig? itemConfig,
     this.style,
     this.textAlign,
     this.textDirection,
@@ -24,6 +25,7 @@ class AdaptiveText extends StackBoardItem {
     bool? tapToEdit,
   }) : super(
           controller: controller,
+          itemConfig: itemConfig,
           id: id,
           onDel: onDel,
           child: const SizedBox.shrink(),
@@ -65,6 +67,7 @@ class AdaptiveText extends StackBoardItem {
   AdaptiveText copyWith({
     String? data,
     ItemCaseController? controller,
+    ItemCaseConfig? itemConfig,
     int? id,
     Widget? child,
     Function(bool)? onEdit,
@@ -84,6 +87,7 @@ class AdaptiveText extends StackBoardItem {
     return AdaptiveText(
       data ?? this.data,
       controller: this.controller,
+      itemConfig: this.itemConfig,
       id: id ?? this.id,
       onDel: onDel ?? this.onDel,
       style: style ?? this.style,

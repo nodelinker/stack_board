@@ -52,10 +52,13 @@ class ItemCase extends StatefulWidget {
     this.onAngleChanged,
     this.onTap,
     this.controller,
+    this.itemConfig,
   }) : super(key: key);
 
   @override
   _ItemCaseState createState() => _ItemCaseState();
+
+  final ItemCaseConfig? itemConfig;
 
   /// 控制器
   final ItemCaseController? controller;
@@ -115,7 +118,11 @@ class _ItemCaseState extends State<ItemCase> with SafeState<ItemCase> {
   void initState() {
     super.initState();
     _operatState = widget.operatState ?? OperatState.idle;
-    _config = SafeValueNotifier<ItemCaseConfig>(ItemCaseConfig.def());
+
+    // item config
+    _config = SafeValueNotifier<ItemCaseConfig>(
+        widget.itemConfig ?? ItemCaseConfig.def());
+
     _config.value.offset = widget.caseStyle?.initOffset;
     widget.controller?._itemCaseState = this;
   }

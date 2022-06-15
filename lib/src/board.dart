@@ -192,6 +192,7 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
       child = AdaptiveTextCase(
         key: key,
         controller: item.controller,
+        itemConfig: item.itemConfig,
         adaptiveText: item,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
@@ -201,6 +202,7 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
       child = DrawingBoardCase(
         key: key,
         controller: item.controller,
+        itemConfig: item.itemConfig,
         stackDrawing: item,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
@@ -210,6 +212,7 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
       child = ItemCase(
         key: key,
         controller: item.controller,
+        itemConfig: item.itemConfig,
         child: item.child,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),

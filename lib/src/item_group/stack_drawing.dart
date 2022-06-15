@@ -8,6 +8,7 @@ import 'stack_board_item.dart';
 class StackDrawing extends StackBoardItem {
   const StackDrawing({
     ItemCaseController? controller,
+    ItemCaseConfig? itemConfig,
     this.size = const Size(260, 260),
     Widget background = const SizedBox(width: 260, height: 260),
     final int? id,
@@ -29,6 +30,7 @@ class StackDrawing extends StackBoardItem {
   @override
   StackDrawing copyWith({
     ItemCaseController? controller,
+    ItemCaseConfig? itemConfig,
     int? id,
     Widget? child,
     Function(bool)? onEdit,
@@ -39,6 +41,7 @@ class StackDrawing extends StackBoardItem {
   }) {
     return StackDrawing(
       controller: this.controller,
+      itemConfig: this.itemConfig,
       background: child ?? this.child,
       id: id ?? this.id,
       onDel: onDel ?? this.onDel,

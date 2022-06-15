@@ -7,6 +7,7 @@ import 'package:stack_board/src/helper/case_style.dart';
 class StackBoardItem {
   const StackBoardItem({
     this.controller,
+    this.itemConfig,
     required this.child,
     this.id,
     this.onDel,
@@ -15,6 +16,8 @@ class StackBoardItem {
   });
 
   final ItemCaseController? controller;
+
+  final ItemCaseConfig? itemConfig;
 
   /// item id
   final int? id;
@@ -35,6 +38,7 @@ class StackBoardItem {
   StackBoardItem copyWith({
     int? id,
     ItemCaseController? controller,
+    ItemCaseConfig? itemConfig,
     Widget? child,
     Future<bool> Function()? onDel,
     CaseStyle? caseStyle,
@@ -42,6 +46,7 @@ class StackBoardItem {
   }) =>
       StackBoardItem(
         controller: this.controller,
+        itemConfig: this.itemConfig,
         id: id ?? this.id,
         child: child ?? this.child,
         onDel: onDel ?? this.onDel,
