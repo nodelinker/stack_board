@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:stack_board/src/case_group/item_case.dart';
-import 'package:stack_board/src/helper/case_style.dart';
-
-import 'stack_board_item.dart';
+import 'package:stack_board/stack_board.dart';
 
 /// 画板
 class StackDrawing extends StackBoardItem {
   const StackDrawing({
     ItemCaseController? controller,
     ItemCaseConfig? itemConfig,
+    OperatState? operatState,
     this.size = const Size(260, 260),
     Widget background = const SizedBox(width: 260, height: 260),
     final int? id,
@@ -18,6 +16,7 @@ class StackDrawing extends StackBoardItem {
   }) : super(
           controller: controller,
           itemConfig: itemConfig,
+          operatState: operatState,
           id: id,
           onDel: onDel,
           child: background,
@@ -32,6 +31,7 @@ class StackDrawing extends StackBoardItem {
   StackDrawing copyWith({
     ItemCaseController? controller,
     ItemCaseConfig? itemConfig,
+    OperatState? operatState,
     int? id,
     Widget? child,
     Function(bool)? onEdit,
@@ -43,6 +43,7 @@ class StackDrawing extends StackBoardItem {
     return StackDrawing(
       controller: this.controller,
       itemConfig: this.itemConfig,
+      operatState: this.operatState,
       background: child ?? this.child,
       id: id ?? this.id,
       onDel: onDel ?? this.onDel,

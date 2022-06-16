@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:stack_board/src/case_group/item_case.dart';
-import 'package:stack_board/src/helper/case_style.dart';
+import 'package:stack_board/stack_board.dart';
 
 /// 自定义对象
 @immutable
@@ -8,6 +7,7 @@ class StackBoardItem {
   const StackBoardItem({
     this.controller,
     this.itemConfig,
+    this.operatState,
     required this.child,
     this.id,
     this.onDel,
@@ -17,7 +17,11 @@ class StackBoardItem {
 
   final ItemCaseController? controller;
 
+  // 初始配置信息
   final ItemCaseConfig? itemConfig;
+
+  // 初始状态
+  final OperatState? operatState;
 
   /// item id
   final int? id;
@@ -39,6 +43,7 @@ class StackBoardItem {
     int? id,
     ItemCaseController? controller,
     ItemCaseConfig? itemConfig,
+    OperatState? operatState,
     Widget? child,
     Future<bool> Function()? onDel,
     CaseStyle? caseStyle,
@@ -47,6 +52,7 @@ class StackBoardItem {
       StackBoardItem(
         controller: this.controller,
         itemConfig: this.itemConfig,
+        operatState: this.operatState,
         id: id ?? this.id,
         child: child ?? this.child,
         onDel: onDel ?? this.onDel,

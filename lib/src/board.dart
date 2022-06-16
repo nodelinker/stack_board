@@ -196,7 +196,7 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
         adaptiveText: item,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
-        operatState: _operatState,
+        operatState: item.operatState ?? _operatState,
       );
     } else if (item is StackDrawing) {
       child = DrawingBoardCase(
@@ -206,7 +206,7 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
         stackDrawing: item,
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
-        operatState: _operatState,
+        operatState: item.operatState ?? _operatState,
       );
     } else {
       child = ItemCase(
@@ -217,7 +217,7 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
         onDel: () => _onDel(item),
         onTap: () => _moveItemToTop(item.id),
         caseStyle: item.caseStyle,
-        operatState: _operatState,
+        operatState: item.operatState ?? _operatState,
       );
 
       if (widget.customBuilder != null) {

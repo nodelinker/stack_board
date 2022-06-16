@@ -15,10 +15,12 @@ class CustomItem extends StackBoardItem {
     Future<bool> Function()? onDel,
     ItemCaseController? controller,
     ItemCaseConfig? itemConfig,
+    OperatState? operatState,
     int? id, // <==== must
   }) : super(
           controller: controller,
           itemConfig: itemConfig,
+          operatState: operatState,
           child: const Text('CustomItem'),
           onDel: onDel,
           id: id, // <==== must
@@ -30,6 +32,7 @@ class CustomItem extends StackBoardItem {
   CustomItem copyWith({
     ItemCaseController? controller,
     ItemCaseConfig? itemConfig,
+    OperatState? operatState,
     CaseStyle? caseStyle,
     Widget? child,
     int? id,
@@ -41,6 +44,7 @@ class CustomItem extends StackBoardItem {
       CustomItem(
         controller: this.controller,
         itemConfig: this.itemConfig,
+        operatState: this.operatState,
         onDel: onDel,
         id: id,
         color: color ?? this.color,
@@ -80,6 +84,7 @@ class _HomePageState extends State<HomePage> {
           controller: ItemCaseController(),
           itemConfig: ItemCaseConfig(
               size: Size(333, 215), offset: Offset(39, 241), angle: 0.51),
+          operatState: OperatState.complate,
           tapToEdit: true,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),

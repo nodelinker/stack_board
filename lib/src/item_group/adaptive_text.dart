@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stack_board/src/helper/case_style.dart';
 import 'package:stack_board/stack_board.dart';
-
-import 'stack_board_item.dart';
 
 /// 自适应文本
 class AdaptiveText extends StackBoardItem {
@@ -10,6 +7,7 @@ class AdaptiveText extends StackBoardItem {
     this.data, {
     ItemCaseController? controller,
     ItemCaseConfig? itemConfig,
+    OperatState? operatState,
     this.style,
     this.textAlign,
     this.textDirection,
@@ -26,6 +24,7 @@ class AdaptiveText extends StackBoardItem {
   }) : super(
           controller: controller,
           itemConfig: itemConfig,
+          operatState: operatState,
           id: id,
           onDel: onDel,
           child: const SizedBox.shrink(),
@@ -68,6 +67,7 @@ class AdaptiveText extends StackBoardItem {
     String? data,
     ItemCaseController? controller,
     ItemCaseConfig? itemConfig,
+    OperatState? operatState,
     int? id,
     Widget? child,
     Function(bool)? onEdit,
@@ -88,6 +88,7 @@ class AdaptiveText extends StackBoardItem {
       data ?? this.data,
       controller: this.controller,
       itemConfig: this.itemConfig,
+      operatState: this.operatState,
       id: id ?? this.id,
       onDel: onDel ?? this.onDel,
       style: style ?? this.style,
