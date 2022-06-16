@@ -17,6 +17,7 @@ class StackDrawing extends StackBoardItem {
     bool? tapToEdit,
   }) : super(
           controller: controller,
+          itemConfig: itemConfig,
           id: id,
           onDel: onDel,
           child: background,
