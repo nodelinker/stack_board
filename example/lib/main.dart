@@ -149,6 +149,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: StackBoard(
         controller: _boardController,
+        tapToCancelAllItem: true,
 
         caseStyle: const CaseStyle(
           borderColor: Colors.grey,

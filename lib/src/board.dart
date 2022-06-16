@@ -1,6 +1,9 @@
 library stack_board;
 
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
 import 'package:stack_board/src/helper/operat_state.dart';
 
@@ -159,6 +162,11 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
       );
 
     if (widget.tapToCancelAllItem) {
+      // // 想办法找到最顶层的item，其他的全部取消
+      // final List<StackBoardItem> topItems = _children
+      //     .where((StackBoardItem i) => i.isTop)
+      //     .toList();
+
       _child = GestureDetector(
         onTap: _unFocus,
         child: _child,
@@ -228,6 +236,17 @@ class _StackBoardState extends State<StackBoard> with SafeState<StackBoard> {
 
     return child;
   }
+
+  Future<Uint8List?> captureScreen() async {
+    final RenderRepaintBoundary? boundary =
+        context.findRenderObject() as RenderRepaintBoundary?;
+    final ui.Image image = await boundary!.toImage(pixelRatio: 3.0);
+    final ByteData? byteData =
+        await image.toByteData(format: ui.ImageByteFormat.png);
+    final Uint8List? pngBytes = byteData?.buffer.asUint8List();
+
+    return pngBytes;
+  }
 }
 
 /// 控制器
@@ -281,5 +300,10 @@ class StackBoardController {
   List<StackBoardItem>? getAllChildren() {
     _check();
     return _stackBoardState?.getAllChildren();
+  }
+
+  Future<Uint8List?> captureScreen() async {
+    _check();
+    return await _stackBoardState?.captureScreen();
   }
 }
